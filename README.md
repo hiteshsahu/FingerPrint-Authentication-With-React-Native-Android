@@ -12,7 +12,20 @@
 
 ## Screen Shots
 
-![Alt text](https://github.com/hiteshsahu/Android-Audio-Recorder-Visualization-Master/blob/master/Art/recording_play.png "Playback screen")
+![Alt text](https://github.com/hiteshsahu/FingerPrint-Authentication-With-React-Native-Aandroid/blob/master/Art/login.png "Login screen")
+
+### FingerPrint Authentication
+
+![Alt text](https://github.com/hiteshsahu/FingerPrint-Authentication-With-React-Native-Aandroid/blob/master/Art/auth_pref.png"Auth screen") ![Alt text](https://github.com/hiteshsahu/FingerPrint-Authentication-With-React-Native-Aandroid/blob/master/Art/bio_metric.png "FingerPrint screen") ![Alt text](https://github.com/hiteshsahu/FingerPrint-Authentication-With-React-Native-Aandroid/blob/master/Art/sucess.png "FingerPrint Success") ![Alt text]https://github.com/hiteshsahu/FingerPrint-Authentication-With-React-Native-Aandroid/blob/master/Art/home.png "FingerPrint Home")
+
+
+
+### Error Handling
+
+![Alt text](https://github.com/hiteshsahu/FingerPrint-Authentication-With-React-Native-Aandroid/blob/master/Art/error_handling.png "Error screen") 
+![Alt text](https://github.com/hiteshsahu/FingerPrint-Authentication-With-React-Native-Aandroid/blob/master/Art/inavlid_tempt.png "Error screen 2") ![Alt text](https://github.com/hiteshsahu/FingerPrint-Authentication-With-React-Native-Aandroid/blob/master/Art/max_attempts.png "Error screen 3")
+
+
 
 
 ## NPM Commands 
@@ -37,16 +50,33 @@
 
     adb reverse tcp:8081 tcp:8081
     
- ## Legal Notice    
+ ## Legal Notice   
+ 
+ 
+       MIT License
 
-    /*
-     *
-     * Copyright (C)  2017 HiteshSahu.com- All Rights Reserved
-     * Unauthorized copying of this file, via any medium is strictly prohibited
-     * Proprietary and confidential.
-     * Written by Hitesh Sahu <hiteshkrsahu@Gmail.com>, 2017.
-     *
-     */
+      Copyright (c) 2017 Hitesh Sahu (hiteshsahu.com)
+      Written by Hitesh Sahu <hiteshkrsahu@gmail.com>
+
+      Permission is hereby granted, free of charge, to any person obtaining a copy
+      of this software and associated documentation files (the "Software"), to deal
+      in the Software without restriction, including without limitation the rights
+      to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+      copies of the Software, and to permit persons to whom the Software is
+      furnished to do so, subject to the following conditions:
+
+      The above copyright notice and this permission notice shall be included in all
+      copies or substantial portions of the Software.
+
+      THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+      IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+      FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+      AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+      LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+      OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+      SOFTWARE.
+
+
 
 
 
