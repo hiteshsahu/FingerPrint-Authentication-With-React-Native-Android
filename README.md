@@ -15,7 +15,7 @@
 ![Alt text](https://github.com/hiteshsahu/Android-Audio-Recorder-Visualization-Master/blob/master/Art/recording_play.png "Playback screen")
 
 
-## UseFul Commands 
+## NPM Commands 
 
 #### Install react native
  
