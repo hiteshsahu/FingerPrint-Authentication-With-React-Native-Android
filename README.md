@@ -16,16 +16,12 @@
 
 ### FingerPrint Authentication
 
-![Alt text](https://github.com/hiteshsahu/FingerPrint-Authentication-With-React-Native-Aandroid/blob/master/Art/auth_pref.png"Auth screen") ![Alt text](https://github.com/hiteshsahu/FingerPrint-Authentication-With-React-Native-Aandroid/blob/master/Art/bio_metric.png "FingerPrint screen") ![Alt text](https://github.com/hiteshsahu/FingerPrint-Authentication-With-React-Native-Aandroid/blob/master/Art/sucess.png "FingerPrint Success") ![Alt text]https://github.com/hiteshsahu/FingerPrint-Authentication-With-React-Native-Aandroid/blob/master/Art/home.png "FingerPrint Home")
-
-
+![Alt text](https://github.com/hiteshsahu/FingerPrint-Authentication-With-React-Native-Aandroid/blob/master/Art/auth_pref.png" Auth screen") ![Alt text](https://github.com/hiteshsahu/FingerPrint-Authentication-With-React-Native-Aandroid/blob/master/Art/bio_metric.png  "FingerPrint screen") ![Alt text](https://github.com/hiteshsahu/FingerPrint-Authentication-With-React-Native-Aandroid/blob/master/Art/sucess.png "FingerPrint Success") ![Alt text]https://github.com/hiteshsahu/FingerPrint-Authentication-With-React-Native-Aandroid/blob/master/Art/home.png "FingerPrint Home")
 
 ### Error Handling
 
-![Alt text](https://github.com/hiteshsahu/FingerPrint-Authentication-With-React-Native-Aandroid/blob/master/Art/error_handling.png "Error screen") 
+![Alt text](https://github.com/hiteshsahu/FingerPrint-Authentication-With-React-Native-Aandroid/blob/master/Art/error_handling.png   "Error screen") 
 ![Alt text](https://github.com/hiteshsahu/FingerPrint-Authentication-With-React-Native-Aandroid/blob/master/Art/inavlid_tempt.png "Error screen 2") ![Alt text](https://github.com/hiteshsahu/FingerPrint-Authentication-With-React-Native-Aandroid/blob/master/Art/max_attempts.png "Error screen 3")
-
-
 
 
 ## NPM Commands 
