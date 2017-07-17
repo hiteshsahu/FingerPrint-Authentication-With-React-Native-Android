@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~
+  ~ Copyright (C)  2017 HiteshSahu.com- All Rights Reserved
+  ~ Unauthorized copying of this file, via any medium is strictly prohibited
+  ~ Proprietary and confidential.
+  ~ Written by Hitesh Sahu <hiteshkrsahu@Gmail.com>, 2017.
+  ~
+  -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <solid android:color="#fefefe" />
+
+    <corners android:radius="2dp" />
+</shape>
