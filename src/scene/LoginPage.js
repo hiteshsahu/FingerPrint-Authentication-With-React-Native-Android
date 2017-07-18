@@ -58,8 +58,8 @@ export default class Login extends Component {
          FingerPrintAndroid.retrieveCredentials(
          (errorMessage) => {
          ToastAndroid.show('Error : '+errorMessage,ToastAndroid.SHORT);},(credentials) => {
-            this.setState({username: JSON.parse(credentials).userName})
-            this.setState({password: JSON.parse(credentials).passWord})
+            //this.setState({username: JSON.parse(credentials).userName})
+            //this.setState({password: JSON.parse(credentials).passWord})
            });
        }
      }
