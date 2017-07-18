@@ -60,6 +60,43 @@ export default class Login extends Component {
          ToastAndroid.show('Error : '+errorMessage,ToastAndroid.SHORT);},(credentials) => {
             //this.setState({username: JSON.parse(credentials).userName})
             //this.setState({password: JSON.parse(credentials).passWord})
+
+            if(Platform.OS === 'android')
+         {
+
+         FingerPrintAndroid.retrieveUserSettings('LOCK_FINGERPRINT',
+         (enableFingerPrint) => {
+
+         //ToastAndroid.show('enableFingerPrint : '+ enableFingerPrint,ToastAndroid.LONG);
+
+         if(enableFingerPrint===true)
+           {
+             FingerPrintAndroid.retrieveUserSettings('useBioMetric',(useBioMetric) => {
+               //  ToastAndroid.show('useBioMetric : '+ useBioMetric,ToastAndroid.LONG);
+                 if(useBioMetric===true)
+                   {
+                     FingerPrintAndroid.authenticateUser(this.state.username, this.state.password, (errorMessage) => {
+                     console.log(errorMessage);
+                     ToastAndroid.show('Error: '+errorMessage,ToastAndroid.SHORT);
+                        },
+                       () => {
+                      // USe Biometric from next time
+                      FingerPrintAndroid.storeUserSettings('useBioMetric', true );
+
+                     //Screen Navigation
+                     this.props.navigator.push({
+                            name: 'Home',
+                            title: 'Home',
+                            });
+                       });
+
+                   }
+                 });
+               }
+             });
+        }
+
+
            });
        }
      }
@@ -128,20 +165,20 @@ export default class Login extends Component {
                           //  ToastAndroid.show('useBioMetric : '+ useBioMetric,ToastAndroid.LONG);
                             if(useBioMetric===true)
                               {
-                                FingerPrintAndroid.authenticateUser(this.state.username, this.state.password, (errorMessage) => {
-                                console.log(errorMessage);
-                                ToastAndroid.show('Error: '+errorMessage,ToastAndroid.SHORT);
-                                   },
-                                  () => {
-                                 // USe Biometric from next time
-                                 FingerPrintAndroid.storeUserSettings('useBioMetric', true );
+                                // FingerPrintAndroid.authenticateUser(this.state.username, this.state.password, (errorMessage) => {
+                                // console.log(errorMessage);
+                                // ToastAndroid.show('Error: '+errorMessage,ToastAndroid.SHORT);
+                                //    },
+                                //   () => {
+                                //  // USe Biometric from next time
+                                //  FingerPrintAndroid.storeUserSettings('useBioMetric', true );
 
                                 //Screen Navigation
                                 this.props.navigator.push({
                                        name: 'Home',
                                        title: 'Home',
                                        });
-                                  });
+                                  // });
 
                               }else {
                                 Alert.alert(
