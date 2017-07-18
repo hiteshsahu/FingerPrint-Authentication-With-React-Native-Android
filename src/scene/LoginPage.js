@@ -202,7 +202,11 @@ export default class Login extends Component {
                       }
                   })
                     }else {
-                      this.goToHome
+                      //Screen Navigation
+                      this.props.navigator.push({
+                             name: 'Home',
+                             title: 'Home',
+                             });
                     }
                   }
                 }
