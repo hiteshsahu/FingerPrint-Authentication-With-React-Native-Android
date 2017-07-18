@@ -9,7 +9,7 @@ import {
   Text,TextInput,Alert,
   Navigator,Button, Image,
   TouchableOpacity,AsyncStorage,
-  View,Linking ,ToastAndroid,
+  View,Linking ,Alert,
   ScrollView
 } from 'react-native';
 export default class Login extends Component {
@@ -37,7 +37,10 @@ export default class Login extends Component {
  authenticateFingerPrint = () => {
     FingerPrintAndroid.authenticateUser(this.state.username, this.state.password, (errorMessage) => {
     console.log(errorMessage);
-    ToastAndroid.show('Error: '+errorMessage,ToastAndroid.SHORT);
+          Alert.alert(
+              'Error :',
+              errorMessage
+           )
        },
       () => {
      // USe Biometric from next time
@@ -57,7 +60,10 @@ export default class Login extends Component {
      {
          FingerPrintAndroid.retrieveCredentials(
          (errorMessage) => {
-         ToastAndroid.show('Error : '+errorMessage,ToastAndroid.SHORT);},(credentials) => {
+           Alert.alert(
+               'Error :',
+               errorMessage
+            )},(credentials) => {
             //this.setState({username: JSON.parse(credentials).userName})
             //this.setState({password: JSON.parse(credentials).passWord})
 
@@ -77,7 +83,10 @@ export default class Login extends Component {
                    {
                      FingerPrintAndroid.authenticateUser(this.state.username, this.state.password, (errorMessage) => {
                      console.log(errorMessage);
-                     ToastAndroid.show('Error: '+errorMessage,ToastAndroid.SHORT);
+                     Alert.alert(
+                         'Error :',
+                         errorMessage
+                      )
                         },
                        () => {
                       // USe Biometric from next time
