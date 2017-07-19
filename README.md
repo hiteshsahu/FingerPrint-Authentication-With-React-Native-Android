@@ -3,7 +3,7 @@
   This React Native project uses of Finger Print Sensor to authenticated user in Android Devices. Uses FingerprintManagerCompat to give backword compatibility for Android <23.
   
 ## Features
--  Supports Older Version of Android API<23 with the Help of FingerprintManagerCompat  
+-  Uses FingerprintManagerCompat to Supports Older Version of Android(API<23)
 -  Native Module to use fingerprint Sensor 
 -  Error Handling in the case of invalid Finger Prints, Unregistered FingerPrint, Lock is not enabled and not supporting Hardware.
 -  After exceeding max finger print attempts, the plugin disables biometric authentication feature.
