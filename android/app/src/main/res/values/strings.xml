@@ -8,7 +8,7 @@
   -->
 
 <resources>
-    <string name="app_name">AProject</string>
+    <string name="app_name">React Native Authentication</string>
 
 
     <string name="action_settings">Settings</string>

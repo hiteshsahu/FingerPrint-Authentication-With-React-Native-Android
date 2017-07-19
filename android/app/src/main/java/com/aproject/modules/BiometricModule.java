@@ -253,9 +253,6 @@ public class BiometricModule extends ReactContextBaseJavaModule {
             }
         } else {
             errorMessage = "Fingerprint authentication feature does not work on rooted devices";
-//            Toast.makeText(AppContext,
-//                    "Fingerprint authentication feature does not work on rooted devices",
-//                    Toast.LENGTH_LONG).show();
             errorCallback.invoke(errorMessage);
 
             //clear stored credentials
