@@ -9,7 +9,7 @@ import {
   Text,TextInput,Alert,
   Navigator,Button, Image,
   TouchableOpacity,AsyncStorage,
-  View,Linking ,Alert,
+  View,Linking ,
   ScrollView
 } from 'react-native';
 export default class Login extends Component {
@@ -150,13 +150,17 @@ export default class Login extends Component {
 
                     if(typeof this.state.username === 'undefined' || this.state.username === null || this.state.username.localeCompare('demo')!=0)
                     {
-                       ToastAndroid.show('Invalid UserName',ToastAndroid.SHORT);
+                       //ToastAndroid.show('Invalid UserName',ToastAndroid.SHORT);
+                       Alert.alert('Please Enter Valid Credentials',
+                          'Invalid UserName');
                        return;
                     }
 
                     if(typeof this.state.password === 'undefined' || this.state.password === null || this.state.password.localeCompare('demo')!=0)
                     {
-                       ToastAndroid.show('Invalid Password',ToastAndroid.SHORT);
+                       //ToastAndroid.show('Invalid Password',ToastAndroid.SHORT);
+                       Alert.alert('Please Enter Valid Credentials',
+                          'Invalid Password');
                        return;
                     }
 

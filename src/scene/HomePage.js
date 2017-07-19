@@ -63,6 +63,12 @@ export default class HomePage extends Component {
 
  componentDidMount = () => {
 
+   FingerPrintAndroid.retrieveUserSettings('useBioMetric',
+   (useBioMetric) => {
+     //  ToastAndroid.show('useBioMetric : '+ useBioMetric,ToastAndroid.LONG);
+        this.setState({ fingerPrintEnabled : useBioMetric })
+      })
+
    if(Platform.OS === 'android')
    {
      FingerPrintAndroid.retrieveUserSettings('LOCK_FINGERPRINT',
@@ -125,14 +131,18 @@ export default class HomePage extends Component {
 
                    <View >
 
-                   <Text style={Style.label}>
+                 {(Platform.OS === 'android') && this.state.fingerPrintEnabled &&  <Text style={Style.label}>
                     Unlock Finger Print Authentication!
                   </Text>
+                  }
 
-                   <Switch onValueChange = {this.toggleSwitch}
+                  {(Platform.OS === 'android') && this.state.fingerPrintEnabled &&<Switch onValueChange = {this.toggleSwitch}
                     value = {this.state.switchValue}
                     />
-                  <Text >{this.state.switchValue ? 'ON' : 'OFF'}</Text>
+                  }
+                  {(Platform.OS === 'android') && this.state.fingerPrintEnabled &&<Text >{this.state.switchValue ? 'ON' : 'OFF'}
+                  </Text>
+                   }
 
                    </View>
                   <View style= {Style.container}>
