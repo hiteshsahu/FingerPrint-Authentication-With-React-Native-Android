@@ -56,58 +56,50 @@ export default class Login extends Component {
 
    componentDidMount = () => {
 
-     if(Platform.OS === 'android')
-     {
-         FingerPrintAndroid.retrieveCredentials(
-         (errorMessage) => {
-           Alert.alert(
-               'Error :',
-               errorMessage
-            )},(credentials) => {
-            //this.setState({username: JSON.parse(credentials).userName})
-            //this.setState({password: JSON.parse(credentials).passWord})
+         if(Platform.OS === 'android')
+         {    //Check if credentials were stored before
+             FingerPrintAndroid.retrieveCredentials((errorMessage) => {
+               Alert.alert(
+                   'Error :',
+                   errorMessage
+                )},
+                (credentials) => {
+                //this.setState({username: JSON.parse(credentials).userName})
+                //this.setState({password: JSON.parse(credentials).passWord})
 
-            if(Platform.OS === 'android')
-         {
+             //Check if fingerprint is not locked
+             FingerPrintAndroid.retrieveUserSettings('LOCK_FINGERPRINT',(enableFingerPrint) => {
+             if(enableFingerPrint===true)
+               {
+                //Check if user choose to allow biometric before
+                 FingerPrintAndroid.retrieveUserSettings('useBioMetric',(useBioMetric) => {
+                     if(useBioMetric===true)
+                       {
+                         //Pop up dialog for FIngerprint
+                         FingerPrintAndroid.authenticateUser(this.state.username, this.state.password, (errorMessage) => {
+                         console.log(errorMessage);
+                         Alert.alert(
+                             'Error :',
+                             errorMessage
+                          )
+                            },
+                           () => {
+                          // USe Biometric from next time
+                          FingerPrintAndroid.storeUserSettings('useBioMetric', true );
 
-         FingerPrintAndroid.retrieveUserSettings('LOCK_FINGERPRINT',
-         (enableFingerPrint) => {
+                         //Screen Navigation
+                         this.props.navigator.push({
+                                name: 'Home',
+                                title: 'Home',
+                                });
+                           });
 
-         //ToastAndroid.show('enableFingerPrint : '+ enableFingerPrint,ToastAndroid.LONG);
-
-         if(enableFingerPrint===true)
-           {
-             FingerPrintAndroid.retrieveUserSettings('useBioMetric',(useBioMetric) => {
-               //  ToastAndroid.show('useBioMetric : '+ useBioMetric,ToastAndroid.LONG);
-                 if(useBioMetric===true)
-                   {
-                     FingerPrintAndroid.authenticateUser(this.state.username, this.state.password, (errorMessage) => {
-                     console.log(errorMessage);
-                     Alert.alert(
-                         'Error :',
-                         errorMessage
-                      )
-                        },
-                       () => {
-                      // USe Biometric from next time
-                      FingerPrintAndroid.storeUserSettings('useBioMetric', true );
-
-                     //Screen Navigation
-                     this.props.navigator.push({
-                            name: 'Home',
-                            title: 'Home',
-                            });
-                       });
-
+                       }
+                     });
                    }
                  });
-               }
-             });
-        }
-
-
-           });
-       }
+               });
+           }
      }
 
   render() {
@@ -166,56 +158,65 @@ export default class Login extends Component {
 
                     if(Platform.OS === 'android')
                     {
+                          //Check if Device support BioMetric
+                           FingerPrintAndroid.isFingerPrintSupported((supported) => {
+                           if(supported===true)
+                             {
+                               //Check if BioMetric is Not Locked
+                                FingerPrintAndroid.retrieveUserSettings('LOCK_FINGERPRINT',(enableFingerPrint) => {
+                                if(enableFingerPrint===true)
+                                  {
+                                    //Check if BioMetric Credentials are stored
+                                    FingerPrintAndroid.retrieveUserSettings('useBioMetric',(useBioMetric) => {
+                                        if(useBioMetric===true)
+                                          {
+                                            // FingerPrintAndroid.authenticateUser(this.state.username, this.state.password, (errorMessage) => {
+                                            // console.log(errorMessage);
+                                            // ToastAndroid.show('Error: '+errorMessage,ToastAndroid.SHORT);
+                                            //    },
+                                            //   () => {
+                                            //  // USe Biometric from next time
+                                            //  FingerPrintAndroid.storeUserSettings('useBioMetric', true );
 
-                    FingerPrintAndroid.retrieveUserSettings('LOCK_FINGERPRINT',
-                    (enableFingerPrint) => {
+                                            //Screen Navigation if already Stored Credentials
+                                            this.props.navigator.push({
+                                                   name: 'Home',
+                                                   title: 'Home',
+                                                   });
+                                              // });
 
-                    //ToastAndroid.show('enableFingerPrint : '+ enableFingerPrint,ToastAndroid.LONG);
-
-                    if(enableFingerPrint===true)
-                      {
-                        FingerPrintAndroid.retrieveUserSettings('useBioMetric',(useBioMetric) => {
-                          //  ToastAndroid.show('useBioMetric : '+ useBioMetric,ToastAndroid.LONG);
-                            if(useBioMetric===true)
-                              {
-                                // FingerPrintAndroid.authenticateUser(this.state.username, this.state.password, (errorMessage) => {
-                                // console.log(errorMessage);
-                                // ToastAndroid.show('Error: '+errorMessage,ToastAndroid.SHORT);
-                                //    },
-                                //   () => {
-                                //  // USe Biometric from next time
-                                //  FingerPrintAndroid.storeUserSettings('useBioMetric', true );
-
-                                //Screen Navigation
+                                          }else {
+                                            //Ask to store biometric
+                                            Alert.alert(
+                                               'FingerPrint Authentication',
+                                               'Would you like to authenticate using fingerprint ?',
+                                               [
+                                                 {text: 'Cancel', onPress: this.goToHome},
+                                                 {text: 'Yes', onPress: this.authenticateFingerPrint},
+                                               ],
+                                               { cancelable: false }
+                                             )
+                                        }
+                                    });
+                                  } else {
+                                    //Screen Navigation if BioMetric is Not Enabled
+                                    this.props.navigator.push({
+                                           name: 'Home',
+                                           title: 'Home',
+                                           });
+                                  }
+                              });
+                            }
+                              else {
+                                //Screen Navigation if BioMetric is Not Supported
                                 this.props.navigator.push({
                                        name: 'Home',
                                        title: 'Home',
                                        });
-                                  // });
-
-                              }else {
-                                Alert.alert(
-                                   'FingerPrint Authentication',
-                                   'Would you like to authenticate using fingerprint ?',
-                                   [
-                                     {text: 'Cancel', onPress: this.goToHome},
-                                     {text: 'Yes', onPress: this.authenticateFingerPrint},
-                                   ],
-                                   { cancelable: false }
-                                 )
-                            }
-                        });
-                      } else {
-                        //Screen Navigation
-                        this.props.navigator.push({
-                               name: 'Home',
-                               title: 'Home',
-                               });
-
-                      }
-                  })
+                              }
+                          })
                     }else {
-                      //Screen Navigation
+                      //Screen Navigation for iOS
                       this.props.navigator.push({
                              name: 'Home',
                              title: 'Home',

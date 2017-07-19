@@ -20,6 +20,7 @@ import android.app.KeyguardManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.hardware.fingerprint.FingerprintManager;
 import android.os.Build;
 import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyPermanentlyInvalidatedException;
@@ -121,6 +122,20 @@ public class BiometricModule extends ReactContextBaseJavaModule {
         getPrefernceHelperInstace().setBoolean(AppContext, key, value);
     }
 
+    private boolean isSensorAvialable() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            return ActivityCompat.checkSelfPermission(AppContext, Manifest.permission.USE_FINGERPRINT) == PackageManager.PERMISSION_GRANTED &&
+                    AppContext.getSystemService(FingerprintManager.class).isHardwareDetected();
+        } else {
+            return FingerprintManagerCompat.from(AppContext).isHardwareDetected();
+        }
+    }
+
+    @ReactMethod
+    public void isFingerPrintSupported(Callback isSUpportedHw) {
+        isSUpportedHw.invoke(isSensorAvialable());
+    }
+
     @ReactMethod
     public void retrieveUserSettings(String key, Callback successCallbackUserSettings) {
 
@@ -156,7 +171,6 @@ public class BiometricModule extends ReactContextBaseJavaModule {
         if (null != decryptedJSON) {
             try {
                 JSONObject decryptedJSONObject = new JSONObject(decryptedJSON);
-                //Toast.makeText(AppContext, "decryptedText : " + decryptedJSONObject, Toast.LENGTH_SHORT).show();
                 successCallbackCred.invoke(decryptedJSONObject.toString());
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -178,10 +192,10 @@ public class BiometricModule extends ReactContextBaseJavaModule {
         //Check if device is not Rooted
         if (!RootUtil.isDeviceRooted()) {
 
-             fingerprintManager = FingerprintManagerCompat.from(AppContext);
-             keyguardManager = (KeyguardManager) AppContext.getSystemService(Context.KEYGUARD_SERVICE);
+            fingerprintManager = FingerprintManagerCompat.from(AppContext);
+            keyguardManager = (KeyguardManager) AppContext.getSystemService(Context.KEYGUARD_SERVICE);
             //keyguardManager = AppContext.getSystemService(KeyguardManager.class);
-           // fingerprintManager = AppContext.getSystemService(FingerprintManager.class);
+            // fingerprintManager = AppContext.getSystemService(FingerprintManager.class);
 
             jsonObject = new JSONObject();
 
@@ -195,24 +209,17 @@ public class BiometricModule extends ReactContextBaseJavaModule {
             // Check whether the device has a Fingerprint sensor.
             if (!fingerprintManager.isHardwareDetected()) {
                 errorMessage = "Your Device does not have a Fingerprint Sensor";
-//                Toast.makeText(AppContext, "Your Device does not have a Fingerprint Sensor",
-//                        Toast.LENGTH_SHORT).show();
                 errorCallback.invoke(errorMessage);
             } else {
                 // Checks whether fingerprint permission is set on manifest
                 if (ActivityCompat.checkSelfPermission(AppContext, Manifest.permission.USE_FINGERPRINT) != PackageManager.PERMISSION_GRANTED) {
                     errorMessage = "Fingerprint authentication permission not enabled";
-//                    Toast.makeText(AppContext, "Fingerprint authentication permission not enabled",
-//                            Toast.LENGTH_SHORT).show();
                     errorCallback.invoke(errorMessage);
                 } else {
                     // Check whether at least one fingerprint is registered
                     if (!fingerprintManager.hasEnrolledFingerprints()) {
                         errorMessage = "Go to 'Settings -> Security -> Fingerprint' and register at least one fingerprint";
 
-//                        Toast.makeText(AppContext,
-//                                "Go to 'Settings -> Security -> Fingerprint' and register at least one fingerprint",
-//                                Toast.LENGTH_LONG).show();
                         errorCallback.invoke(errorMessage);
 
                     } else {
@@ -222,10 +229,6 @@ public class BiometricModule extends ReactContextBaseJavaModule {
                             errorMessage = "Secure lock screen hasn't set up.\n"
                                     + "Go to 'Settings -> Security -> Fingerprint' to set up a fingerprint";
 
-//                            Toast.makeText(AppContext,
-//                                    "Secure lock screen hasn't set up.\n"
-//                                            + "Go to 'Settings -> Security -> Fingerprint' to set up a fingerprint",
-//                                    Toast.LENGTH_LONG).show();
                             errorCallback.invoke(errorMessage);
                         } else {
 

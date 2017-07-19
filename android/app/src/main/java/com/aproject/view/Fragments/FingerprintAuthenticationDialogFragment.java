@@ -12,7 +12,6 @@ package com.aproject.view.Fragments;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.hardware.fingerprint.FingerprintManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.hardware.fingerprint.FingerprintManagerCompat;
@@ -72,7 +71,7 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment
         });
 
         mFingerprintUiHelper = new FingerprintUiHelper(
-                mActivity.getSystemService(FingerprintManager.class),
+                FingerprintManagerCompat.from(mActivity),
                 (ImageView) rootView.findViewById(R.id.fingerprint_icon),
                 (TextView) rootView.findViewById(R.id.fingerprint_status), this);
 

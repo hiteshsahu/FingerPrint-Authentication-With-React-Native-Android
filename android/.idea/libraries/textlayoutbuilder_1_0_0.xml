@@ -1,8 +1,11 @@
 <component name="libraryTable">
   <library name="textlayoutbuilder-1.0.0">
+    <ANNOTATIONS>
+      <root url="jar://$USER_HOME$/.android/build-cache/168464e11e54e2346046af45e8c831c3c1fb715d/output/annotations.zip!/" />
+    </ANNOTATIONS>
     <CLASSES>
-      <root url="jar://$USER_HOME$/.android/build-cache/085797d473073a268d3118d22d115e2f1da08189/output/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.android/build-cache/085797d473073a268d3118d22d115e2f1da08189/output/res" />
+      <root url="jar://$USER_HOME$/.android/build-cache/168464e11e54e2346046af45e8c831c3c1fb715d/output/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.android/build-cache/168464e11e54e2346046af45e8c831c3c1fb715d/output/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
