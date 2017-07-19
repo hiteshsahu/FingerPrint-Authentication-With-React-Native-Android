@@ -63,6 +63,13 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment
             }
         });
 
+        rootView.findViewById(R.id.cancel_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+            }
+        });
+
         mFingerprintUiHelper = new FingerprintUiHelper(
                 mActivity.getSystemService(FingerprintManager.class),
                 (ImageView) rootView.findViewById(R.id.fingerprint_icon),
