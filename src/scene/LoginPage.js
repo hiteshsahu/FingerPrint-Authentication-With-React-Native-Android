@@ -105,6 +105,9 @@ export default class Login extends Component {
                  });
                });
            }
+           else {
+             Alert.alert('Signin' ,' Authentication is not supported on Rooted Device ');
+              }
           });
         }
      }
