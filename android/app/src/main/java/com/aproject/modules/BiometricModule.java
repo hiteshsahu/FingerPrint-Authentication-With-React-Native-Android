@@ -136,6 +136,12 @@ public class BiometricModule extends ReactContextBaseJavaModule {
         isSUpportedHw.invoke(isSensorAvialable());
     }
 
+
+    @ReactMethod
+    public void isDeviceRooted(Callback isRooted) {
+        isRooted.invoke(RootUtil.isDeviceRooted());
+    }
+
     @ReactMethod
     public void retrieveUserSettings(String key, Callback successCallbackUserSettings) {
 

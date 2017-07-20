@@ -57,7 +57,12 @@ export default class Login extends Component {
    componentDidMount = () => {
 
          if(Platform.OS === 'android')
-         {    //Check if credentials were stored before
+         {
+           //Check if Device is Rooted
+            FingerPrintAndroid.isDeviceRooted((isRooted) => {
+            if(isRooted===false)
+              {
+           //Check if credentials were stored before
              FingerPrintAndroid.retrieveCredentials((errorMessage) => {
                Alert.alert(
                    'Error :',
@@ -100,6 +105,8 @@ export default class Login extends Component {
                  });
                });
            }
+          });
+        }
      }
 
   render() {
@@ -158,6 +165,10 @@ export default class Login extends Component {
 
                     if(Platform.OS === 'android')
                     {
+                      //Check if Device is Rooted
+                       FingerPrintAndroid.isDeviceRooted((isRooted) => {
+                       if(isRooted===false)
+                         {
                           //Check if Device support BioMetric
                            FingerPrintAndroid.isFingerPrintSupported((supported) => {
                            if(supported===true)
@@ -214,8 +225,15 @@ export default class Login extends Component {
                                        title: 'Home',
                                        });
                               }
-                          })
-                    }else {
+                          });
+                        }
+                        else {
+                          Alert.alert('Signin' ,' Authentication is not supported on Rooted Device ');
+                           return;
+                        }
+                      });
+                  }
+                    else {
                       //Screen Navigation for iOS
                       this.props.navigator.push({
                              name: 'Home',
