@@ -20,13 +20,13 @@ import android.app.KeyguardManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.hardware.fingerprint.FingerprintManager;
 import android.os.Build;
 import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyPermanentlyInvalidatedException;
 import android.security.keystore.KeyProperties;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.hardware.fingerprint.FingerprintManagerCompat;
 import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
@@ -84,7 +84,7 @@ public class BiometricModule extends ReactContextBaseJavaModule {
     private Context AppContext;
     private Activity activityContext;
     private KeyguardManager keyguardManager;
-    private FingerprintManager fingerprintManager;
+    private FingerprintManagerCompat fingerprintManager;
     private Cipher defaultCipher;
     private Cipher cipherNotInvalidated;
     private Callback errorCallback;
@@ -177,8 +177,11 @@ public class BiometricModule extends ReactContextBaseJavaModule {
 
         //Check if device is not Rooted
         if (!RootUtil.isDeviceRooted()) {
-            keyguardManager = AppContext.getSystemService(KeyguardManager.class);
-            fingerprintManager = AppContext.getSystemService(FingerprintManager.class);
+
+             fingerprintManager = FingerprintManagerCompat.from(AppContext);
+             keyguardManager = (KeyguardManager) AppContext.getSystemService(Context.KEYGUARD_SERVICE);
+            //keyguardManager = AppContext.getSystemService(KeyguardManager.class);
+           // fingerprintManager = AppContext.getSystemService(FingerprintManager.class);
 
             jsonObject = new JSONObject();
 
@@ -236,7 +239,7 @@ public class BiometricModule extends ReactContextBaseJavaModule {
                                 FingerprintAuthenticationDialogFragment fragment
                                         = new FingerprintAuthenticationDialogFragment(BiometricModule.this);
                                 //Assign crypto Object
-                                fragment.setCryptoObject(new FingerprintManager.CryptoObject(defaultCipher));
+                                fragment.setCryptoObject(new FingerprintManagerCompat.CryptoObject(defaultCipher));
                                 //Start Authentication
                                 fragment.show(activityContext.getFragmentManager(), DIALOG_FRAGMENT_TAG);
 
@@ -315,7 +318,7 @@ public class BiometricModule extends ReactContextBaseJavaModule {
     }
 
     public void authenticationSuccess(boolean withFingerprint,
-                                      @Nullable FingerprintManager.CryptoObject cryptoObject) {
+                                      @Nullable FingerprintManagerCompat.CryptoObject cryptoObject) {
 
         storeCredentials();
 

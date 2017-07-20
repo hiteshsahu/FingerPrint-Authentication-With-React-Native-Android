@@ -10,9 +10,8 @@
 package com.aproject.view.Fragments;
 
 import android.annotation.TargetApi;
-import android.hardware.fingerprint.FingerprintManager;
 import android.os.Build;
-import android.os.CancellationSignal;
+import android.support.v4.hardware.fingerprint.FingerprintManagerCompat;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,15 +25,15 @@ import static android.hardware.fingerprint.FingerprintManager.FINGERPRINT_ERROR_
  * Small helper class to manage text/icon around fingerprint authentication UI.
  */
 @TargetApi(Build.VERSION_CODES.M)
-public class FingerprintUiHelper extends FingerprintManager.AuthenticationCallback {
+public class FingerprintUiHelper extends FingerprintManagerCompat.AuthenticationCallback {
 
     private static final long ERROR_TIMEOUT_MILLIS = 1600;
     private static final long SUCCESS_DELAY_MILLIS = 1300;
-    private final FingerprintManager mFingerprintManager;
+    private final FingerprintManagerCompat mFingerprintManager;
     private final ImageView mIcon;
     private final TextView mErrorTextView;
     private final Callback mCallback;
-    private CancellationSignal mCancellationSignal;
+    private android.support.v4.os.CancellationSignal mCancellationSignal;
 //    private int failureCount;
 
     private boolean mSelfCancelled;
@@ -49,7 +48,7 @@ public class FingerprintUiHelper extends FingerprintManager.AuthenticationCallba
         }
     };
 
-    FingerprintUiHelper(FingerprintManager fingerprintManager,
+    FingerprintUiHelper(FingerprintManagerCompat fingerprintManager,
                         ImageView icon, TextView errorTextView, Callback callback) {
         mFingerprintManager = fingerprintManager;
         mIcon = icon;
@@ -58,21 +57,21 @@ public class FingerprintUiHelper extends FingerprintManager.AuthenticationCallba
 //        failureCount = 0;
     }
 
-    public void startListening(FingerprintManager.CryptoObject cryptoObject) {
+    public void startListening(FingerprintManagerCompat.CryptoObject cryptoObject) {
         if (!isFingerprintAuthAvailable()) {
             return;
         }
-        mCancellationSignal = new CancellationSignal();
+        mCancellationSignal = new android.support.v4.os.CancellationSignal();
         mSelfCancelled = false;
         // The line below prevents the false positive inspection from Android Studio
         // noinspection ResourceType
         mFingerprintManager
-                .authenticate(cryptoObject, mCancellationSignal, 0 /* flags */, this, null);
+                .authenticate(cryptoObject,  0 /* flags */,mCancellationSignal, this, null);
         mIcon.setImageResource(R.drawable.ic_fp_40px);
     }
 
     @Override
-    public void onAuthenticationSucceeded(FingerprintManager.AuthenticationResult result) {
+    public void onAuthenticationSucceeded(FingerprintManagerCompat.AuthenticationResult result) {
         mErrorTextView.removeCallbacks(mResetErrorTextRunnable);
         mIcon.setImageResource(R.drawable.ic_fingerprint_success);
         mErrorTextView.setTextColor(

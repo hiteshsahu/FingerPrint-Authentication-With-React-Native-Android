@@ -15,6 +15,7 @@ import android.content.SharedPreferences;
 import android.hardware.fingerprint.FingerprintManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.hardware.fingerprint.FingerprintManagerCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,7 +34,7 @@ import com.aproject.modules.BiometricModule;
 public class FingerprintAuthenticationDialogFragment extends DialogFragment
         implements FingerprintUiHelper.Callback {
 
-    private FingerprintManager.CryptoObject mCryptoObject;
+    private FingerprintManagerCompat.CryptoObject mCryptoObject;
     private FingerprintUiHelper mFingerprintUiHelper;
     private MainActivity mActivity;
     private SharedPreferences mSharedPreferences;
@@ -88,7 +89,7 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment
     /**
      * Sets the crypto object to be passed in when authenticating with fingerprint.
      */
-    public void setCryptoObject(FingerprintManager.CryptoObject cryptoObject) {
+    public void setCryptoObject(FingerprintManagerCompat.CryptoObject cryptoObject) {
         mCryptoObject = cryptoObject;
     }
 
