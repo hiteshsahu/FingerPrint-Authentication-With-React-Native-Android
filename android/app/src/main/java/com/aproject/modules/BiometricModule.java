@@ -143,6 +143,11 @@ public class BiometricModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
+    public void exitApp() {
+        System.exit(0);
+    }
+
+    @ReactMethod
     public void retrieveUserSettings(String key, Callback successCallbackUserSettings) {
 
         if (key.equalsIgnoreCase(AppConstants.LOCK_FINGERPRINT)) {
@@ -196,7 +201,7 @@ public class BiometricModule extends ReactContextBaseJavaModule {
         String errorMessage = null;
 
         //Check if device is not Rooted
-        if (!RootUtil.isDeviceRooted()) {
+        if (RootUtil.isDeviceRooted()) {
 
             fingerprintManager = FingerprintManagerCompat.from(AppContext);
             keyguardManager = (KeyguardManager) AppContext.getSystemService(Context.KEYGUARD_SERVICE);

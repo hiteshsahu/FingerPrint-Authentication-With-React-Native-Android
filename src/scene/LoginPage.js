@@ -106,7 +106,14 @@ export default class Login extends Component {
                });
            }
            else {
-             Alert.alert('Signin' ,' Authentication is not supported on Rooted Device ');
+            
+             Alert.alert('Signin' ,
+             ' Authentication is not supported on Rooted Device ',
+             [
+               {text: 'OK', onPress: () => FingerPrintAndroid.exitApp()},
+             ],
+             { cancelable: false }
+            );
               }
           });
         }
@@ -231,7 +238,13 @@ export default class Login extends Component {
                           });
                         }
                         else {
-                          Alert.alert('Signin' ,' Authentication is not supported on Rooted Device ');
+                          Alert.alert('Signin' ,
+                          ' Authentication is not supported on Rooted Device ',
+                          [
+                            {text: 'OK', onPress: () => FingerPrintAndroid.exitApp()},
+                          ],
+                          { cancelable: false }
+                         );
                            return;
                         }
                       });
